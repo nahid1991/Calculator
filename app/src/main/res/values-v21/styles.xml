@@ -2,12 +2,14 @@
 <resources>
 
     <style name="AppTheme" parent="AppTheme.Base">
-        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:colorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:colorPrimaryDark">#190000</item>
+        <item name="android:colorPrimary">#190000</item>
 
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">#190000</item>
         <item name="android:colorAccent">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/colorHighlight</item>
     </style>
+
+
 
 </resources>

@@ -1,6 +1,7 @@
 package com.example.android.calculator;
 
 
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,11 +12,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private Toolbar toolbar;
-    TextView something;
-    Button testing;
-
+    TextView reserve, firstAndResult, operator;
+    Button one, two, three, four, five, six, seven, eight, nine, zero, add, subtract, multiply, division, equal, dot, mem, spill,
+    allclear, back, plusminus;
+    String temp = "";
+    float a = 0, b;
+    float result;
 
 
     @Override
@@ -24,17 +31,75 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
+        toolbar.setTitle("");
+        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         initialize();
+        settingButton();
     }
 
 
     public void initialize(){
-        something = (TextView) findViewById(R.id.first);
-        testing = (Button) findViewById(R.id.button);
+        reserve = (TextView) findViewById(R.id.reserve);
+        firstAndResult = (TextView) findViewById(R.id.firstAndResult);
+        operator = (TextView) findViewById(R.id.operator);
 
+        allclear = (Button) findViewById(R.id.allClear);
+        back = (Button) findViewById(R.id.backSpace);
+        dot = (Button) findViewById(R.id.dot);
+        mem = (Button) findViewById(R.id.memory);
+        spill = (Button) findViewById(R.id.spill);
+
+        zero = (Button) findViewById(R.id.zero);
+        one = (Button) findViewById(R.id.one);
+        two = (Button) findViewById(R.id.two);
+        three = (Button) findViewById(R.id.three);
+        four = (Button) findViewById(R.id.four);
+        five = (Button) findViewById(R.id.five);
+        six = (Button) findViewById(R.id.six);
+        seven = (Button) findViewById(R.id.seven);
+        eight = (Button) findViewById(R.id.eight);
+        nine = (Button) findViewById(R.id.nine);
+
+        add = (Button) findViewById(R.id.plus);
+        subtract = (Button) findViewById(R.id.minus);
+        multiply = (Button) findViewById(R.id.multiply);
+        division = (Button) findViewById(R.id.division);
+        equal = (Button) findViewById(R.id.equal);
+        plusminus = (Button) findViewById(R.id.plusminus);
     }
+
+    public void settingButton(){
+        zero.setOnClickListener(this);
+        one.setOnClickListener(this);
+        two.setOnClickListener(this);
+        three.setOnClickListener(this);
+        four.setOnClickListener(this);
+        five.setOnClickListener(this);
+        six.setOnClickListener(this);
+        seven.setOnClickListener(this);
+        eight.setOnClickListener(this);
+        nine.setOnClickListener(this);
+
+        add.setOnClickListener(this);
+        subtract.setOnClickListener(this);
+        multiply.setOnClickListener(this);
+        division.setOnClickListener(this);
+        plusminus.setOnClickListener(this);
+
+        dot.setOnClickListener(this);
+        mem.setOnClickListener(this);
+        spill.setOnClickListener(this);
+
+        allclear.setOnClickListener(this);
+        back.setOnClickListener(this);
+        equal.setOnClickListener(this);
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,9 +132,1192 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.button:
-                something.setText("Test");
+            case R.id.plusminus:
+                if(operator.getText().toString() == "="){
+                    reserve.setText("");
+                    firstAndResult.setText("-");
+                    operator.setText("");
+                    a=0;
+                    b=0;
+                    break;
+                }
+                else{
+                    if(firstAndResult.getText().toString().length()>0){
+                        Toast.makeText(this, "Please put the +/- in the beginning", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    else{
+                        firstAndResult.setText("-");
+                        break;
+                    }
+                }
+
+
+
+            case R.id.dot:
+                if(operator.getText().toString() == "="){
+                    reserve.setText("");
+                    firstAndResult.setText(".");
+                    operator.setText("");
+                    a=0;
+                    b=0;
+                    break;
+                }
+                else{
+                    if(!firstAndResult.getText().toString().contains(".")){
+                        if(firstAndResult.getText().toString().length()<=7){
+                            firstAndResult.setText(firstAndResult.getText()+".");
+                            break;
+                        }
+                        else{
+                            Toast.makeText(this, "No more than 8 digits", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                    }
+                    else if(firstAndResult.getText().toString().contains("."))
+                    {
+                        Toast.makeText(this, "You already have a . in your text", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+
+            case R.id.zero:
+                if(operator.getText().toString() == "="){
+                    reserve.setText("");
+                    firstAndResult.setText("0");
+                    operator.setText("");
+                    a=0;
+                    b=0;
+                    break;
+                }
+                else{
+                    if(firstAndResult.getText().toString().length()<=7){
+                        firstAndResult.setText(firstAndResult.getText()+"0");
+                        break;
+                    }
+                    else{
+                        Toast.makeText(this, "No more than 8 digits", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+            case R.id.one:
+                if(operator.getText().toString() == "="){
+                    reserve.setText("");
+                    firstAndResult.setText("1");
+                    operator.setText("");
+                    a=0;
+                    b=0;
+                    break;
+                }
+                else{
+                    if(firstAndResult.getText().toString().length()<=7){
+                        firstAndResult.setText(firstAndResult.getText()+"1");
+                        break;
+                    }
+                    else{
+                        Toast.makeText(this, "No more than 8 digits", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+            case R.id.two:
+                if(operator.getText().toString() == "="){
+                    reserve.setText("");
+                    firstAndResult.setText("2");
+                    operator.setText("");
+                    a=0;
+                    b=0;
+                    break;
+                }
+                else{
+                    if(firstAndResult.getText().toString().length()<=7){
+                        firstAndResult.setText(firstAndResult.getText()+"2");
+                        break;
+                    }
+                    else{
+                        Toast.makeText(this, "No more than 8 digits", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+            case R.id.three:
+                if(operator.getText().toString() == "="){
+                    reserve.setText("");
+                    firstAndResult.setText("3");
+                    operator.setText("");
+                    a=0;
+                    b=0;
+                    break;
+                }
+                else{
+                    if(firstAndResult.getText().toString().length()<=7){
+                        firstAndResult.setText(firstAndResult.getText()+"3");
+                        break;
+                    }
+                    else{
+                        Toast.makeText(this, "No more than 8 digits", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+            case R.id.four:
+                if(operator.getText().toString() == "="){
+                    reserve.setText("");
+                    firstAndResult.setText("4");
+                    operator.setText("");
+                    a=0;
+                    b=0;
+                    break;
+                }
+                else{
+                    if(firstAndResult.getText().toString().length()<=7){
+                        firstAndResult.setText(firstAndResult.getText()+"4");
+                        break;
+                    }
+                    else{
+                        Toast.makeText(this, "No more than 8 digits", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+
+            case R.id.five:
+                if(operator.getText().toString() == "="){
+                    reserve.setText("");
+                    firstAndResult.setText("5");
+                    operator.setText("");
+                    a=0;
+                    b=0;
+                    break;
+                }
+                else{
+                    if(firstAndResult.getText().toString().length()<=7){
+                        firstAndResult.setText(firstAndResult.getText()+"5");
+                        break;
+                    }
+                    else{
+                        Toast.makeText(this, "No more than 8 digits", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+
+            case R.id.six:
+                if(operator.getText().toString() == "="){
+                    reserve.setText("");
+                    firstAndResult.setText("6");
+                    operator.setText("");
+                    a=0;
+                    b=0;
+                    break;
+                }
+                else{
+                    if(firstAndResult.getText().toString().length()<=7){
+                        firstAndResult.setText(firstAndResult.getText()+"6");
+                        break;
+                    }
+                    else{
+                        Toast.makeText(this, "No more than 8 digits", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+
+            case R.id.seven:
+                if(operator.getText().toString() == "="){
+                    reserve.setText("");
+                    firstAndResult.setText("7");
+                    operator.setText("");
+                    a=0;
+                    b=0;
+                    break;
+                }
+                else{
+                    if(firstAndResult.getText().toString().length()<=7){
+                        firstAndResult.setText(firstAndResult.getText()+"7");
+                        break;
+                    }
+                    else{
+                        Toast.makeText(this, "No more than 8 digits", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+
+            case R.id.eight:
+                if(operator.getText().toString() == "="){
+                    reserve.setText("");
+                    firstAndResult.setText("8");
+                    operator.setText("");
+                    a=0;
+                    b=0;
+                    break;
+                }
+                else{
+                    if(firstAndResult.getText().toString().length()<=7){
+                        firstAndResult.setText(firstAndResult.getText()+"8");
+                        break;
+                    }
+                    else{
+                        Toast.makeText(this, "No more than 8 digits", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+
+            case R.id.nine:
+                if(operator.getText().toString() == "="){
+                    reserve.setText("");
+                    firstAndResult.setText("9");
+                    operator.setText("");
+                    a=0;
+                    b=0;
+                    break;
+                }
+                else{
+                    if(firstAndResult.getText().toString().length()<=7){
+                        firstAndResult.setText(firstAndResult.getText()+"9");
+                        break;
+                    }
+                    else{
+                        Toast.makeText(this, "No more than 8 digits", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+//                    Plus
+//                    Button
+//                    Work
+            case R.id.plus:
+                try{
+                    if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
+                        reserve.setText(firstAndResult.getText().toString());
+                        operator.setText("+");
+                        a = Float.parseFloat(firstAndResult.getText().toString());
+                        firstAndResult.setText("");
+                        break;
+                    }
+                    else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
+                            &&operator.getText().toString() == "="){
+                        operator.setText("+");
+                        reserve.setText(firstAndResult.getText().toString());
+                        a = Float.parseFloat(reserve.getText().toString());
+                        firstAndResult.setText("");
+                        break;
+                    }
+                    else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
+                            &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
+                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
+                        b = Float.parseFloat(firstAndResult.getText().toString());
+                        if(operator.getText().toString() == "+"){
+                            result = a+b;
+                            if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+
+                                reserve.setText(Float.toString(result));
+                            }
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+                        }
+
+
+                        else if(operator.getText().toString() == "-"){
+                            result = a-b;
+                            if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+
+                                reserve.setText(Float.toString(result));
+                            }
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+                        }
+                        else if(operator.getText().toString() == "X"){
+                            result = a*b;
+                            if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+
+                                reserve.setText(Float.toString(result));
+                            }
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+
+                        }
+                        else{
+                            if(b == 0){
+                                Toast.makeText(this, "You cannot divide anything with zero", Toast.LENGTH_SHORT).show();
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                operator.setText("");
+                                a = 0;
+                                b = 0;
+                                break;
+                            }
+                            else{
+                                result = a/b;
+                                if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+                                    reserve.setText(Float.toString(result));
+                                }
+                                else{
+                                    Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                    a = 0;
+                                    b = 0;
+                                    operator.setText("");
+                                    firstAndResult.setText("");
+                                    reserve.setText("");
+                                    break;
+                                }
+
+                            }
+                        }
+                        a = result;
+                        firstAndResult.setText("");
+                        operator.setText("+");
+                        break;
+                    }
+
+
+                    else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() > 0
+                            &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
+                            operator.getText().toString() == "X" || operator.getText().toString() == "/"
+                            || operator.getText().toString() == "=")){
+                        operator.setText("+");
+                        break;
+                    }
+
+
+                    else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() == 0
+                            &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
+                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
+                        operator.setText("+");
+                        break;
+                    }
+
+                    else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() == 0
+                            && operator.getText().toString().length() == 0){
+                        operator.setText("+");
+                        break;
+                    }
+
+
+                    else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
+                            &&operator.getText().toString().length() == 0){
+                        firstAndResult.setText("");
+                        operator.setText("+");
+                        break;
+                    }
+
+                    else if(firstAndResult.getText().toString().contains("-") &&operator.getText().toString() == ""){
+                        firstAndResult.setText("");
+                        operator.setText("+");
+                        break;
+                    }
+                }catch (RuntimeException e){
+                    e.printStackTrace();
+                }
+
+
+
+
+//                    Minus
+//                    Button
+//                    Work
+
+
+
+            case R.id.minus:
+                try{
+                    if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
+                        reserve.setText(firstAndResult.getText().toString());
+                        operator.setText("-");
+                        a = Float.parseFloat(firstAndResult.getText().toString());
+                        firstAndResult.setText("");
+                        break;
+                    }
+                    else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
+                            &&operator.getText().toString() == "="){
+                        operator.setText("-");
+                        reserve.setText(firstAndResult.getText().toString());
+                        a = Float.parseFloat(reserve.getText().toString());
+                        firstAndResult.setText("");
+                        break;
+                    }
+
+                    else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
+                            &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
+                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
+                        b = Float.parseFloat(firstAndResult.getText().toString());
+                        if(operator.getText().toString() == "+"){
+                            result = a+b;
+                            if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+
+                                reserve.setText(Float.toString(result));
+                            }
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+                        }
+
+
+                        else if(operator.getText().toString() == "-"){
+                            result = a-b;
+                            if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+
+                                reserve.setText(Float.toString(result));
+                            }
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+                        }
+                        else if(operator.getText().toString() == "X"){
+                            result = a*b;
+                            if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+
+                                reserve.setText(Float.toString(result));
+                            }
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+
+                        }
+                        else{
+                            if(b == 0){
+                                Toast.makeText(this, "You cannot divide anything with zero", Toast.LENGTH_SHORT).show();
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                operator.setText("");
+                                a = 0;
+                                b = 0;
+                                break;
+                            }
+                            else{
+                                result = a/b;
+                                if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+                                    reserve.setText(Float.toString(result));
+                                }
+                                else{
+                                    Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                    a = 0;
+                                    b = 0;
+                                    operator.setText("");
+                                    firstAndResult.setText("");
+                                    reserve.setText("");
+                                    break;
+                                }
+
+                            }
+                        }
+                        a = result;
+                        firstAndResult.setText("");
+                        operator.setText("-");
+                        break;
+                    }
+
+                    else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() > 0
+                            &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
+                            operator.getText().toString() == "X" || operator.getText().toString() == "/"
+                            || operator.getText().toString() == "=")){
+                        operator.setText("-");
+                        break;
+                    }
+
+
+                    else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() == 0
+                            &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
+                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
+                        operator.setText("-");
+                        break;
+                    }
+
+                    else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() == 0
+                            && operator.getText().toString().length() == 0){
+                        operator.setText("-");
+                        break;
+                    }
+
+
+                    else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
+                            &&operator.getText().toString().length() == 0){
+                        firstAndResult.setText("");
+                        operator.setText("-");
+                        break;
+                    }
+
+
+                    else if(firstAndResult.getText().toString().contains("-") &&operator.getText().toString() == ""){
+                        firstAndResult.setText("");
+                        operator.setText("-");
+                        break;
+                    }
+                }catch (RuntimeException e){
+                    e.printStackTrace();
+                }
+
+
+
+
+
+//                    Multiply
+//                    Button
+//                    Work
+
+            case R.id.multiply:
+                try{
+                    if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
+                        reserve.setText(firstAndResult.getText().toString());
+                        operator.setText("X");
+                        a = Float.parseFloat(firstAndResult.getText().toString());
+                        firstAndResult.setText("");
+                        break;
+                    }
+                    else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
+                            &&operator.getText().toString() == "="){
+                        operator.setText("X");
+                        reserve.setText(firstAndResult.getText().toString());
+                        a = Float.parseFloat(reserve.getText().toString());
+                        firstAndResult.setText("");
+                        break;
+                    }
+                    else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
+                            &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
+                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
+                        b = Float.parseFloat(firstAndResult.getText().toString());
+                        if(operator.getText().toString() == "+"){
+                            result = a+b;
+                            if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+
+                                reserve.setText(Float.toString(result));
+                            }
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+                        }
+
+
+                        else if(operator.getText().toString() == "-"){
+                            result = a-b;
+                            if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+
+                                reserve.setText(Float.toString(result));
+                            }
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+                        }
+                        else if(operator.getText().toString() == "X"){
+                            result = a*b;
+                            if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+
+                                reserve.setText(Float.toString(result));
+                            }
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+
+                        }
+                        else{
+                            if(b == 0){
+                                Toast.makeText(this, "You cannot divide anything with zero", Toast.LENGTH_SHORT).show();
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                operator.setText("");
+                                a = 0;
+                                b = 0;
+                                break;
+                            }
+                            else{
+                                result = a/b;
+                                if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+                                    reserve.setText(Float.toString(result));
+                                }
+                                else{
+                                    Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                    a = 0;
+                                    b = 0;
+                                    operator.setText("");
+                                    firstAndResult.setText("");
+                                    reserve.setText("");
+                                    break;
+                                }
+
+                            }
+                        }
+                        a = result;
+                        firstAndResult.setText("");
+                        operator.setText("-");
+                        break;
+                    }
+
+                    else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() > 0
+                            &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
+                            operator.getText().toString() == "X" || operator.getText().toString() == "/"
+                            || operator.getText().toString() == "=")){
+                        operator.setText("X");
+                        break;
+                    }
+
+
+                    else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() == 0
+                            &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
+                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
+                        operator.setText("X");
+                        break;
+                    }
+
+                    else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() == 0
+                            && operator.getText().toString().length() == 0){
+                        operator.setText("X");
+                        break;
+                    }
+
+
+
+                    else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
+                            &&operator.getText().toString().length() == 0){
+                        firstAndResult.setText("");
+                        operator.setText("X");
+                        break;
+                    }
+
+                    else if(firstAndResult.getText().toString().contains("-") &&operator.getText().toString() == ""){
+                        firstAndResult.setText("");
+                        operator.setText("X");
+                        break;
+                    }
+                }catch(RuntimeException e){
+                    e.printStackTrace();
+                }
+
+//                    Division
+//                    Button
+//                    Work
+
+
+            case R.id.division:
+                try{
+                    if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
+                        reserve.setText(firstAndResult.getText().toString());
+                        operator.setText("/");
+                        a = Float.parseFloat(firstAndResult.getText().toString());
+                        firstAndResult.setText("");
+                        break;
+                    }
+                    else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
+                            &&operator.getText().toString() == "="){
+                        operator.setText("/");
+                        reserve.setText(firstAndResult.getText().toString());
+                        a = Float.parseFloat(reserve.getText().toString());
+                        firstAndResult.setText("");
+                        break;
+                    }
+                    else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
+                            &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
+                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
+                        b = Float.parseFloat(firstAndResult.getText().toString());
+                        if(operator.getText().toString() == "+"){
+                            result = a+b;
+                            if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+
+                                reserve.setText(Float.toString(result));
+                            }
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+                        }
+
+
+                        else if(operator.getText().toString() == "-"){
+                            result = a-b;
+                            if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+
+                                reserve.setText(Float.toString(result));
+                            }
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+                        }
+                        else if(operator.getText().toString() == "X"){
+                            result = a*b;
+                            if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+
+                                reserve.setText(Float.toString(result));
+                            }
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+
+                        }
+                        else{
+                            if(b == 0){
+                                Toast.makeText(this, "You cannot divide anything with zero", Toast.LENGTH_SHORT).show();
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                operator.setText("");
+                                a = 0;
+                                b = 0;
+                                break;
+                            }
+                            else{
+                                result = a/b;
+                                if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
+                                    reserve.setText(Float.toString(result));
+                                }
+                                else{
+                                    Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                    a = 0;
+                                    b = 0;
+                                    operator.setText("");
+                                    firstAndResult.setText("");
+                                    reserve.setText("");
+                                    break;
+                                }
+
+                            }
+                        }
+                        a = result;
+                        firstAndResult.setText("");
+                        operator.setText("/");
+                        break;
+                    }
+
+                    else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() > 0
+                            &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
+                            operator.getText().toString() == "X" || operator.getText().toString() == "/"
+                            || operator.getText().toString() == "=")){
+                        operator.setText("/");
+                        break;
+                    }
+
+
+                    else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() == 0
+                            && operator.getText().toString().length() == 0){
+                        operator.setText("/");
+                        break;
+                    }
+
+
+                    else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() == 0
+                            &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
+                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
+                        operator.setText("/");
+                        break;
+                    }
+
+
+                    else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
+                            &&operator.getText().toString().length() == 0){
+                        firstAndResult.setText("");
+                        operator.setText("/");
+                        break;
+                    }
+
+                    else if(firstAndResult.getText().toString().contains("-") &&operator.getText().toString() == ""){
+                        firstAndResult.setText("");
+                        operator.setText("/");
+                        break;
+                    }
+                }catch (RuntimeException e){
+                    e.printStackTrace();
+                }
+
+
+
+
+//                All clear
+
+
+
+
+            case R.id.allClear:
+                firstAndResult.setText("");
+                reserve.setText("");
+                operator.setText("");
+                temp = "";
+                a = 0;
+                b = 0;
                 break;
+
+
+
+
+//                Backspace
+
+            case R.id.backSpace:
+                if(firstAndResult.getText().toString().length() > 0){
+                    firstAndResult.setText(firstAndResult.getText().toString().substring(0,
+                            firstAndResult.getText().toString().length()-1));
+                    break;
+                }
+
+                else if(operator.getText().toString() == "="){
+                    Toast.makeText(this, "Cannot delete answer with DEL", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+
+                else{
+                    Toast.makeText(this, "No input yet", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+
+
+
+
+//            Memory
+            case R.id.memory:
+                if(firstAndResult.getText().toString().length() > 0){
+                    temp = firstAndResult.getText().toString();
+                    Toast.makeText(this, temp+" has been saved in memory", Toast.LENGTH_SHORT).show();
+                    break;
+
+                }
+
+                else{
+                    Toast.makeText(this, "Nothing to memorize", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+//                Spill memory
+            case R.id.spill:
+                if(temp != ""){
+                    if(operator.getText().toString() == "="){
+                        operator.setText("");
+                        reserve.setText("");
+                        firstAndResult.setText(temp);
+                        a = 0;
+                        b = 0;
+                        break;
+                    }
+                    else{
+                        firstAndResult.setText("");
+                        firstAndResult.setText(temp);
+                        break;
+                    }
+                }
+                else if(temp.length()==0){
+                    Toast.makeText(this, "Nothing was in the memory", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+
+
+//                equals
+            case R.id.equal:
+                try{
+                    if(operator.getText().toString() == "+"){
+                        if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0){
+                            b = Float.parseFloat(firstAndResult.getText().toString());
+                            result = a+b;
+                            if(result > -Float.MAX_VALUE && result <Float.MAX_VALUE){
+                                reserve.setText(Float.toString(a) + "+" + Float.toString(b));
+                                operator.setText("=");
+                                firstAndResult.setText(Float.toString(result));
+                                a = result;
+                                break;
+                            }
+
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+                        }
+                        else if(firstAndResult.getText().toString().length() == 0 && reserve.getText().toString().length() > 0){
+                            b = 0;
+                            result = a+b;
+                            reserve.setText(Float.toString(result));
+                            firstAndResult.setText(Float.toString(result));
+                            operator.setText("=");
+                            a = result;
+                            break;
+                        }
+                        else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
+                            b = Float.parseFloat(firstAndResult.getText().toString());
+                            a = 0;
+                            result = a+b;
+                            reserve.setText(Float.toString(result));
+                            firstAndResult.setText(Float.toString(result));
+                            operator.setText("=");
+                            a = result;
+                            break;
+                        }
+                        else if(firstAndResult.getText().toString().length() == 0 && reserve.getText().toString().length() == 0){
+                            b = 0;
+                            a = 0;
+                            result = a+b;
+                            reserve.setText(Float.toString(result));
+                            firstAndResult.setText(Float.toString(result));
+                            operator.setText("=");
+                            a = result;
+                            break;
+
+                        }
+                    }
+
+
+                    else if(operator.getText().toString() == "-"){
+                        if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0){
+                            b = Float.parseFloat(firstAndResult.getText().toString());
+                            result = a-b;
+                            if(result > -Float.MAX_VALUE && result <Float.MAX_VALUE){
+                                reserve.setText(Float.toString(a) + "-" +Float.toString(b));
+                                firstAndResult.setText(Float.toString(result));
+                                operator.setText("=");
+                                a = result;
+                                break;
+                            }
+
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+                        }
+                        else if(firstAndResult.getText().toString().length() == 0 && reserve.getText().toString().length() > 0){
+                            b = 0;
+                            result = a-b;
+                            reserve.setText(Float.toString(result));
+                            firstAndResult.setText(Float.toString(result));
+                            operator.setText("=");
+                            a = result;
+                            break;
+                        }
+                        else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
+                            a = 0;
+                            b = Float.parseFloat(firstAndResult.getText().toString());
+                            result = a-b;
+                            reserve.setText(Float.toString(result));
+                            firstAndResult.setText(Float.toString(result));
+                            operator.setText("=");
+                            a = result;
+                            break;
+                        }
+                        else if(firstAndResult.getText().toString().length() == 0 && reserve.getText().toString().length() == 0){
+                            a = 0;
+                            b = 0;
+                            result = a-b;
+                            reserve.setText(Float.toString(result));
+                            firstAndResult.setText(Float.toString(result));
+                            operator.setText("=");
+                            a = result;
+                            break;
+                        }
+                    }
+
+
+
+
+                    else if(operator.getText().toString() == "X"){
+                        if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0){
+                            b = Float.parseFloat(firstAndResult.getText().toString());
+                            result = a*b;
+
+                            if(result > -Float.MAX_VALUE && result <Float.MAX_VALUE){
+                                reserve.setText(Float.toString(a) + "X" +Float.toString(b));
+                                firstAndResult.setText(Float.toString(result));
+                                operator.setText("=");
+                                a = result;
+                                break;
+                            }
+
+                            else{
+                                Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                a = 0;
+                                b = 0;
+                                operator.setText("");
+                                firstAndResult.setText("");
+                                reserve.setText("");
+                                break;
+                            }
+                        }
+                        else if(firstAndResult.getText().toString().length() == 0 && reserve.getText().toString().length() > 0){
+                            b = 0;
+                            result = a*b;
+                            reserve.setText(Float.toString(result));
+                            firstAndResult.setText(Float.toString(result));
+                            operator.setText("=");
+                            a = result;
+                            break;
+                        }
+                        else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
+                            b = Float.parseFloat(firstAndResult.getText().toString());
+                            a = 0;
+                            result = a*b;
+                            reserve.setText(Float.toString(a) + "X" +Float.toString(b));
+                            firstAndResult.setText(Float.toString(result));
+                            operator.setText("=");
+                            a = result;
+                            break;
+                        }
+                        else if(firstAndResult.getText().toString().length() == 0 && reserve.getText().toString().length() == 0){
+                            b = 0;
+                            a = 0;
+                            reserve.setText(Float.toString(a) + "X" +Float.toString(b));
+                            result = a*b;
+                            reserve.setText(Float.toString(result));
+                            operator.setText("=");
+                            a = result;
+                            break;
+                        }
+                    }
+
+
+                    else if(operator.getText().toString() == "/"){
+                        if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0){
+                            if(Float.parseFloat(firstAndResult.getText().toString()) == 0){
+                                Toast.makeText(this, "Cannot divide by zero (When you put nothing for division we count it as zero)",
+                                        Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+                            else{
+                                b = Float.parseFloat(firstAndResult.getText().toString());
+
+                                result = a/b;
+
+                                if(result > -Float.MAX_VALUE && result <Float.MAX_VALUE){
+                                    reserve.setText(Float.toString(a) + "/" +Float.toString(b));
+                                    firstAndResult.setText(Float.toString(result));
+                                    operator.setText("=");
+                                    a = result;
+                                    break;
+                                }
+
+                                else{
+                                    Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                                    a = 0;
+                                    b = 0;
+                                    operator.setText("");
+                                    firstAndResult.setText("");
+                                    reserve.setText("");
+                                    break;
+                                }
+                            }
+                        }
+                        else if(firstAndResult.getText().toString().length() == 0 && reserve.getText().toString().length() > 0){
+                            Toast.makeText(this, "Cannot divide by zero (When you put nothing for division we count it as zero)",
+                                    Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                        else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
+                            if(Float.parseFloat(firstAndResult.getText().toString()) > 0)
+                            {
+                                a = 0;
+                                b = Float.parseFloat(firstAndResult.getText().toString());
+                                reserve.setText(Float.toString(a) + "/" + Float.toString(b));
+                                result = a/b;
+                                firstAndResult.setText(Float.toString(result));
+                                operator.setText("=");
+                                a = result;
+                                break;
+                            }
+                            else{
+                                Toast.makeText(this, "Cannot divide by zero (When you put nothing for division we count it as zero)",
+                                        Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+                        }
+
+                    }
+
+
+                    else if((operator.getText().toString().length() == 0 || operator.getText().toString().length() > 0)
+                            && firstAndResult.getText().toString().length() > 0) {
+                        if(firstAndResult.getText().toString().length() > 1){
+                            operator.setText("=");
+                            reserve.setText(firstAndResult.getText().toString());
+                            break;
+                        }
+
+                        if(firstAndResult.getText().toString().length() == 1 &&
+                                firstAndResult.getText().toString().contains("-")){
+                            Toast.makeText(this, "Not valid", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                    }
+
+
+                    else if(operator.getText().toString() == "="){
+                        Toast.makeText(this, "This is your answer", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }catch (RuntimeException io){
+                    io.printStackTrace();
+                }
+
+
+
+
+
         }
     }
 }
