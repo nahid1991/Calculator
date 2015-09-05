@@ -1080,15 +1080,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.root:
                 try{
                     if(firstAndResult.getText().toString().length() > 0) {
-                        reserve.setText("√"+firstAndResult.getText().toString());
                         a = Math.sqrt(Double.parseDouble(firstAndResult.getText().toString()));
-                        firstAndResult.setText(Double.toString(a));
-                        operator.setText("=");
-                        a = 0;
-                        b = 0;
-                        Toast.makeText(this, "Before pressing √ make sure you keep the previous result in memory.",
-                                Toast.LENGTH_SHORT).show();
-                        break;
+                        if(a > -Float.MAX_VALUE && a <Float.MAX_VALUE){
+                            reserve.setText("√"+firstAndResult.getText().toString());
+
+                            firstAndResult.setText(Double.toString(a));
+                            operator.setText("=");
+                            a = 0;
+                            b = 0;
+                            Toast.makeText(this, "Before pressing √ make sure you keep the previous result in memory.",
+                                    Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+
+                        else{
+                            Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                            a = 0;
+                            b = 0;
+                            operator.setText("");
+                            firstAndResult.setText("");
+                            reserve.setText("");
+                            break;
+                        }
+
                     }
 
                     else if(firstAndResult.getText().toString().contains("-")) {
@@ -1109,15 +1123,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.square:
                 try{
                     if(firstAndResult.getText().toString().length() > 0) {
-                        reserve.setText("("+firstAndResult.getText().toString()+")"+"²");
                         a = Math.pow(Double.parseDouble(firstAndResult.getText().toString()), 2);
-                        firstAndResult.setText(Double.toString(a));
-                        operator.setText("=");
-                        a = 0;
-                        b = 0;
-                        Toast.makeText(this, "Before pressing x² make sure you keep the previous result in memory.",
-                                Toast.LENGTH_SHORT).show();
-                        break;
+                        if(a > -Float.MAX_VALUE && a <Float.MAX_VALUE){
+                            reserve.setText("("+firstAndResult.getText().toString()+")"+"²");
+                            firstAndResult.setText(Double.toString(a));
+                            operator.setText("=");
+                            a = 0;
+                            b = 0;
+                            Toast.makeText(this, "Before pressing x² make sure you keep the previous result in memory.",
+                                    Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+
+                        else{
+                            Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                            a = 0;
+                            b = 0;
+                            operator.setText("");
+                            firstAndResult.setText("");
+                            reserve.setText("");
+                            break;
+                        }
+
                     }
                     else if(firstAndResult.getText().toString().length() == 0) {
                         Toast.makeText(this, "No input entered. Before pressing x² make sure you keep the previous result in memory.",
@@ -1131,15 +1158,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cube:
                 try{
                     if(firstAndResult.getText().toString().length() > 0) {
-                        reserve.setText("("+firstAndResult.getText().toString()+")"+"³");
                         a = Math.pow(Double.parseDouble(firstAndResult.getText().toString()), 3);
-                        firstAndResult.setText(Double.toString(a));
-                        operator.setText("=");
-                        a = 0;
-                        b = 0;
-                        Toast.makeText(this, "Before pressing x³ make sure you keep the previous result in memory.",
-                                Toast.LENGTH_SHORT).show();
-                        break;
+                        if(a > -Float.MAX_VALUE && a <Float.MAX_VALUE){
+                            reserve.setText("("+firstAndResult.getText().toString()+")"+"³");
+                            firstAndResult.setText(Double.toString(a));
+                            operator.setText("=");
+                            a = 0;
+                            b = 0;
+                            Toast.makeText(this, "Before pressing x³ make sure you keep the previous result in memory.",
+                                    Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+
+                        else{
+                            Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
+                            a = 0;
+                            b = 0;
+                            operator.setText("");
+                            firstAndResult.setText("");
+                            reserve.setText("");
+                            break;
+                        }
+
                     }
                     else if(firstAndResult.getText().toString().length() == 0) {
                         Toast.makeText(this, "No input entered. Before pressing x³ make sure you keep the previous result in memory.",
