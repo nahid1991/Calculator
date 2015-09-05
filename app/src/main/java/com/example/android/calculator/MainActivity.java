@@ -19,10 +19,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Toolbar toolbar;
     TextView reserve, firstAndResult, operator;
     Button one, two, three, four, five, six, seven, eight, nine, zero, add, subtract, multiply, division, equal, dot, mem, spill,
-    allclear, back, plusminus;
+    allclear, back, plusminus, root, square, cube;
     String temp = "";
-    float a = 0, b;
-    float result;
+    double a = 0, b;
+    double result;
 
 
     @Override
@@ -69,6 +69,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         division = (Button) findViewById(R.id.division);
         equal = (Button) findViewById(R.id.equal);
         plusminus = (Button) findViewById(R.id.plusminus);
+        root = (Button) findViewById(R.id.root);
+        square = (Button) findViewById(R.id.square);
+        cube = (Button) findViewById(R.id.cube);
     }
 
     public void settingButton(){
@@ -96,6 +99,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         allclear.setOnClickListener(this);
         back.setOnClickListener(this);
         equal.setOnClickListener(this);
+
+        root.setOnClickListener(this);
+        square.setOnClickListener(this);
+        cube.setOnClickListener(this);
     }
 
 
@@ -384,7 +391,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
                         reserve.setText(firstAndResult.getText().toString());
                         operator.setText("+");
-                        a = Float.parseFloat(firstAndResult.getText().toString());
+                        a = Double.parseDouble(firstAndResult.getText().toString());
                         firstAndResult.setText("");
                         break;
                     }
@@ -392,19 +399,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             &&operator.getText().toString() == "="){
                         operator.setText("+");
                         reserve.setText(firstAndResult.getText().toString());
-                        a = Float.parseFloat(reserve.getText().toString());
+                        a = Double.parseDouble(reserve.getText().toString());
                         firstAndResult.setText("");
                         break;
                     }
                     else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
                             &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
-                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
-                        b = Float.parseFloat(firstAndResult.getText().toString());
+                            operator.getText().toString() == "✖" || operator.getText().toString() == "/")){
+                        b = Double.parseDouble(firstAndResult.getText().toString());
                         if(operator.getText().toString() == "+"){
                             result = a+b;
                             if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
 
-                                reserve.setText(Float.toString(result));
+                                reserve.setText(Double.toString(result));
                             }
                             else{
                                 Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -422,7 +429,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             result = a-b;
                             if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
 
-                                reserve.setText(Float.toString(result));
+                                reserve.setText(Double.toString(result));
                             }
                             else{
                                 Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -434,11 +441,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 break;
                             }
                         }
-                        else if(operator.getText().toString() == "X"){
+                        else if(operator.getText().toString() == "✖"){
                             result = a*b;
                             if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
 
-                                reserve.setText(Float.toString(result));
+                                reserve.setText(Double.toString(result));
                             }
                             else{
                                 Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -464,7 +471,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             else{
                                 result = a/b;
                                 if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
-                                    reserve.setText(Float.toString(result));
+                                    reserve.setText(Double.toString(result));
                                 }
                                 else{
                                     Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -487,7 +494,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() > 0
                             &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
-                            operator.getText().toString() == "X" || operator.getText().toString() == "/"
+                            operator.getText().toString() == "✖" || operator.getText().toString() == "/"
                             || operator.getText().toString() == "=")){
                         operator.setText("+");
                         break;
@@ -496,7 +503,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() == 0
                             &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
-                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
+                            operator.getText().toString() == "✖" || operator.getText().toString() == "/")){
                         operator.setText("+");
                         break;
                     }
@@ -538,7 +545,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
                         reserve.setText(firstAndResult.getText().toString());
                         operator.setText("-");
-                        a = Float.parseFloat(firstAndResult.getText().toString());
+                        a = Double.parseDouble(firstAndResult.getText().toString());
                         firstAndResult.setText("");
                         break;
                     }
@@ -546,20 +553,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             &&operator.getText().toString() == "="){
                         operator.setText("-");
                         reserve.setText(firstAndResult.getText().toString());
-                        a = Float.parseFloat(reserve.getText().toString());
+                        a = Double.parseDouble(reserve.getText().toString());
                         firstAndResult.setText("");
                         break;
                     }
 
                     else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
                             &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
-                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
-                        b = Float.parseFloat(firstAndResult.getText().toString());
+                            operator.getText().toString() == "✖" || operator.getText().toString() == "/")){
+                        b = Double.parseDouble(firstAndResult.getText().toString());
                         if(operator.getText().toString() == "+"){
                             result = a+b;
                             if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
 
-                                reserve.setText(Float.toString(result));
+                                reserve.setText(Double.toString(result));
                             }
                             else{
                                 Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -577,7 +584,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             result = a-b;
                             if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
 
-                                reserve.setText(Float.toString(result));
+                                reserve.setText(Double.toString(result));
                             }
                             else{
                                 Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -589,11 +596,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 break;
                             }
                         }
-                        else if(operator.getText().toString() == "X"){
+                        else if(operator.getText().toString() == "✖"){
                             result = a*b;
                             if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
 
-                                reserve.setText(Float.toString(result));
+                                reserve.setText(Double.toString(result));
                             }
                             else{
                                 Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -619,7 +626,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             else{
                                 result = a/b;
                                 if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
-                                    reserve.setText(Float.toString(result));
+                                    reserve.setText(Double.toString(result));
                                 }
                                 else{
                                     Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -641,7 +648,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() > 0
                             &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
-                            operator.getText().toString() == "X" || operator.getText().toString() == "/"
+                            operator.getText().toString() == "✖" || operator.getText().toString() == "/"
                             || operator.getText().toString() == "=")){
                         operator.setText("-");
                         break;
@@ -650,7 +657,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() == 0
                             &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
-                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
+                            operator.getText().toString() == "✖" || operator.getText().toString() == "/")){
                         operator.setText("-");
                         break;
                     }
@@ -691,28 +698,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try{
                     if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
                         reserve.setText(firstAndResult.getText().toString());
-                        operator.setText("X");
-                        a = Float.parseFloat(firstAndResult.getText().toString());
+                        operator.setText("✖");
+                        a = Double.parseDouble(firstAndResult.getText().toString());
                         firstAndResult.setText("");
                         break;
                     }
                     else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
                             &&operator.getText().toString() == "="){
-                        operator.setText("X");
+                        operator.setText("✖");
                         reserve.setText(firstAndResult.getText().toString());
-                        a = Float.parseFloat(reserve.getText().toString());
+                        a = Double.parseDouble(reserve.getText().toString());
                         firstAndResult.setText("");
                         break;
                     }
                     else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
                             &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
-                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
-                        b = Float.parseFloat(firstAndResult.getText().toString());
+                            operator.getText().toString() == "✖" || operator.getText().toString() == "/")){
+                        b = Double.parseDouble(firstAndResult.getText().toString());
                         if(operator.getText().toString() == "+"){
                             result = a+b;
                             if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
 
-                                reserve.setText(Float.toString(result));
+                                reserve.setText(Double.toString(result));
                             }
                             else{
                                 Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -730,7 +737,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             result = a-b;
                             if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
 
-                                reserve.setText(Float.toString(result));
+                                reserve.setText(Double.toString(result));
                             }
                             else{
                                 Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -742,11 +749,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 break;
                             }
                         }
-                        else if(operator.getText().toString() == "X"){
+                        else if(operator.getText().toString() == "✖"){
                             result = a*b;
                             if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
 
-                                reserve.setText(Float.toString(result));
+                                reserve.setText(Double.toString(result));
                             }
                             else{
                                 Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -772,7 +779,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             else{
                                 result = a/b;
                                 if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
-                                    reserve.setText(Float.toString(result));
+                                    reserve.setText(Double.toString(result));
                                 }
                                 else{
                                     Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -794,23 +801,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() > 0
                             &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
-                            operator.getText().toString() == "X" || operator.getText().toString() == "/"
+                            operator.getText().toString() == "✖" || operator.getText().toString() == "/"
                             || operator.getText().toString() == "=")){
-                        operator.setText("X");
+                        operator.setText("✖");
                         break;
                     }
 
 
                     else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() == 0
                             &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
-                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
-                        operator.setText("X");
+                            operator.getText().toString() == "✖" || operator.getText().toString() == "/")){
+                        operator.setText("✖");
                         break;
                     }
 
                     else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() == 0
                             && operator.getText().toString().length() == 0){
-                        operator.setText("X");
+                        operator.setText("✖");
                         break;
                     }
 
@@ -819,13 +826,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
                             &&operator.getText().toString().length() == 0){
                         firstAndResult.setText("");
-                        operator.setText("X");
+                        operator.setText("✖");
                         break;
                     }
 
                     else if(firstAndResult.getText().toString().contains("-") &&operator.getText().toString() == ""){
                         firstAndResult.setText("");
-                        operator.setText("X");
+                        operator.setText("✖");
                         break;
                     }
                 }catch(RuntimeException e){
@@ -842,7 +849,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
                         reserve.setText(firstAndResult.getText().toString());
                         operator.setText("/");
-                        a = Float.parseFloat(firstAndResult.getText().toString());
+                        a = Double.parseDouble(firstAndResult.getText().toString());
                         firstAndResult.setText("");
                         break;
                     }
@@ -850,19 +857,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             &&operator.getText().toString() == "="){
                         operator.setText("/");
                         reserve.setText(firstAndResult.getText().toString());
-                        a = Float.parseFloat(reserve.getText().toString());
+                        a = Double.parseDouble(reserve.getText().toString());
                         firstAndResult.setText("");
                         break;
                     }
                     else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0
                             &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
-                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
-                        b = Float.parseFloat(firstAndResult.getText().toString());
+                            operator.getText().toString() == "✖" || operator.getText().toString() == "/")){
+                        b = Double.parseDouble(firstAndResult.getText().toString());
                         if(operator.getText().toString() == "+"){
                             result = a+b;
                             if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
 
-                                reserve.setText(Float.toString(result));
+                                reserve.setText(Double.toString(result));
                             }
                             else{
                                 Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -880,7 +887,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             result = a-b;
                             if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
 
-                                reserve.setText(Float.toString(result));
+                                reserve.setText(Double.toString(result));
                             }
                             else{
                                 Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -892,11 +899,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 break;
                             }
                         }
-                        else if(operator.getText().toString() == "X"){
+                        else if(operator.getText().toString() == "✖"){
                             result = a*b;
                             if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
 
-                                reserve.setText(Float.toString(result));
+                                reserve.setText(Double.toString(result));
                             }
                             else{
                                 Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -922,7 +929,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             else{
                                 result = a/b;
                                 if(result > -Float.MAX_VALUE && result < Float.MAX_VALUE){
-                                    reserve.setText(Float.toString(result));
+                                    reserve.setText(Double.toString(result));
                                 }
                                 else{
                                     Toast.makeText(this, "Calculation limit exceeded", Toast.LENGTH_SHORT).show();
@@ -944,7 +951,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() > 0
                             &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
-                            operator.getText().toString() == "X" || operator.getText().toString() == "/"
+                            operator.getText().toString() == "✖" || operator.getText().toString() == "/"
                             || operator.getText().toString() == "=")){
                         operator.setText("/");
                         break;
@@ -960,7 +967,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else if(firstAndResult.getText().toString().length() == 0 &&reserve.getText().toString().length() == 0
                             &&(operator.getText().toString() == "+" || operator.getText().toString() == "-"||
-                            operator.getText().toString() == "X" || operator.getText().toString() == "/")){
+                            operator.getText().toString() == "✖" || operator.getText().toString() == "/")){
                         operator.setText("/");
                         break;
                     }
@@ -1063,17 +1070,110 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
 
+
+
+
+
+
+
+
+            case R.id.root:
+                try{
+                    if(firstAndResult.getText().toString().length() > 0) {
+                        reserve.setText("√"+firstAndResult.getText().toString());
+                        a = Math.sqrt(Double.parseDouble(firstAndResult.getText().toString()));
+                        firstAndResult.setText(Double.toString(a));
+                        operator.setText("=");
+                        a = 0;
+                        b = 0;
+                        Toast.makeText(this, "Before pressing √ make sure you keep the previous result in memory.",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+
+                    else if(firstAndResult.getText().toString().contains("-")) {
+                        Toast.makeText(this, "Not possible to square root a negative number. " +
+                                        "Before pressing √ make sure you keep the previous result in memory.",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    else if(firstAndResult.getText().toString().length() == 0) {
+                        Toast.makeText(this, "No input entered. Before pressing √ make sure you keep the previous result in memory.",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }catch(RuntimeException e) {
+                    e.printStackTrace();
+                }
+
+            case R.id.square:
+                try{
+                    if(firstAndResult.getText().toString().length() > 0) {
+                        reserve.setText("("+firstAndResult.getText().toString()+")"+"²");
+                        a = Math.pow(Double.parseDouble(firstAndResult.getText().toString()), 2);
+                        firstAndResult.setText(Double.toString(a));
+                        operator.setText("=");
+                        a = 0;
+                        b = 0;
+                        Toast.makeText(this, "Before pressing x² make sure you keep the previous result in memory.",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    else if(firstAndResult.getText().toString().length() == 0) {
+                        Toast.makeText(this, "No input entered. Before pressing x² make sure you keep the previous result in memory.",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }catch(RuntimeException e) {
+                    e.printStackTrace();
+                }
+
+            case R.id.cube:
+                try{
+                    if(firstAndResult.getText().toString().length() > 0) {
+                        reserve.setText("("+firstAndResult.getText().toString()+")"+"³");
+                        a = Math.pow(Double.parseDouble(firstAndResult.getText().toString()), 3);
+                        firstAndResult.setText(Double.toString(a));
+                        operator.setText("=");
+                        a = 0;
+                        b = 0;
+                        Toast.makeText(this, "Before pressing x³ make sure you keep the previous result in memory.",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    else if(firstAndResult.getText().toString().length() == 0) {
+                        Toast.makeText(this, "No input entered. Before pressing x³ make sure you keep the previous result in memory.",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }catch(RuntimeException e) {
+                    e.printStackTrace();
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //                equals
             case R.id.equal:
                 try{
                     if(operator.getText().toString() == "+"){
                         if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0){
-                            b = Float.parseFloat(firstAndResult.getText().toString());
+                            b = Double.parseDouble(firstAndResult.getText().toString());
                             result = a+b;
                             if(result > -Float.MAX_VALUE && result <Float.MAX_VALUE){
-                                reserve.setText(Float.toString(a) + "+" + Float.toString(b));
+                                reserve.setText(Double.toString(a) + "+" + Double.toString(b));
                                 operator.setText("=");
-                                firstAndResult.setText(Float.toString(result));
+                                firstAndResult.setText(Double.toString(result));
                                 a = result;
                                 break;
                             }
@@ -1091,18 +1191,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         else if(firstAndResult.getText().toString().length() == 0 && reserve.getText().toString().length() > 0){
                             b = 0;
                             result = a+b;
-                            reserve.setText(Float.toString(result));
-                            firstAndResult.setText(Float.toString(result));
+                            reserve.setText(Double.toString(result));
+                            firstAndResult.setText(Double.toString(result));
                             operator.setText("=");
                             a = result;
                             break;
                         }
                         else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
-                            b = Float.parseFloat(firstAndResult.getText().toString());
+                            b = Double.parseDouble(firstAndResult.getText().toString());
                             a = 0;
                             result = a+b;
-                            reserve.setText(Float.toString(result));
-                            firstAndResult.setText(Float.toString(result));
+                            reserve.setText(Double.toString(result));
+                            firstAndResult.setText(Double.toString(result));
                             operator.setText("=");
                             a = result;
                             break;
@@ -1111,8 +1211,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             b = 0;
                             a = 0;
                             result = a+b;
-                            reserve.setText(Float.toString(result));
-                            firstAndResult.setText(Float.toString(result));
+                            reserve.setText(Double.toString(result));
+                            firstAndResult.setText(Double.toString(result));
                             operator.setText("=");
                             a = result;
                             break;
@@ -1123,11 +1223,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else if(operator.getText().toString() == "-"){
                         if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0){
-                            b = Float.parseFloat(firstAndResult.getText().toString());
+                            b = Double.parseDouble(firstAndResult.getText().toString());
                             result = a-b;
                             if(result > -Float.MAX_VALUE && result <Float.MAX_VALUE){
-                                reserve.setText(Float.toString(a) + "-" +Float.toString(b));
-                                firstAndResult.setText(Float.toString(result));
+                                reserve.setText(Double.toString(a) + "-" +Double.toString(b));
+                                firstAndResult.setText(Double.toString(result));
                                 operator.setText("=");
                                 a = result;
                                 break;
@@ -1146,18 +1246,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         else if(firstAndResult.getText().toString().length() == 0 && reserve.getText().toString().length() > 0){
                             b = 0;
                             result = a-b;
-                            reserve.setText(Float.toString(result));
-                            firstAndResult.setText(Float.toString(result));
+                            reserve.setText(Double.toString(result));
+                            firstAndResult.setText(Double.toString(result));
                             operator.setText("=");
                             a = result;
                             break;
                         }
                         else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
                             a = 0;
-                            b = Float.parseFloat(firstAndResult.getText().toString());
+                            b = Double.parseDouble(firstAndResult.getText().toString());
                             result = a-b;
-                            reserve.setText(Float.toString(result));
-                            firstAndResult.setText(Float.toString(result));
+                            reserve.setText(Double.toString(result));
+                            firstAndResult.setText(Double.toString(result));
                             operator.setText("=");
                             a = result;
                             break;
@@ -1166,8 +1266,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             a = 0;
                             b = 0;
                             result = a-b;
-                            reserve.setText(Float.toString(result));
-                            firstAndResult.setText(Float.toString(result));
+                            reserve.setText(Double.toString(result));
+                            firstAndResult.setText(Double.toString(result));
                             operator.setText("=");
                             a = result;
                             break;
@@ -1177,14 +1277,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-                    else if(operator.getText().toString() == "X"){
+                    else if(operator.getText().toString() == "✖"){
                         if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0){
-                            b = Float.parseFloat(firstAndResult.getText().toString());
+                            b = Double.parseDouble(firstAndResult.getText().toString());
                             result = a*b;
 
                             if(result > -Float.MAX_VALUE && result <Float.MAX_VALUE){
-                                reserve.setText(Float.toString(a) + "X" +Float.toString(b));
-                                firstAndResult.setText(Float.toString(result));
+                                reserve.setText(Double.toString(a) + "✖" +Double.toString(b));
+                                firstAndResult.setText(Double.toString(result));
                                 operator.setText("=");
                                 a = result;
                                 break;
@@ -1203,18 +1303,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         else if(firstAndResult.getText().toString().length() == 0 && reserve.getText().toString().length() > 0){
                             b = 0;
                             result = a*b;
-                            reserve.setText(Float.toString(result));
-                            firstAndResult.setText(Float.toString(result));
+                            reserve.setText(Double.toString(result));
+                            firstAndResult.setText(Double.toString(result));
                             operator.setText("=");
                             a = result;
                             break;
                         }
                         else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
-                            b = Float.parseFloat(firstAndResult.getText().toString());
+                            b = Double.parseDouble(firstAndResult.getText().toString());
                             a = 0;
                             result = a*b;
-                            reserve.setText(Float.toString(a) + "X" +Float.toString(b));
-                            firstAndResult.setText(Float.toString(result));
+                            reserve.setText(Double.toString(a) + "✖" +Double.toString(b));
+                            firstAndResult.setText(Double.toString(result));
                             operator.setText("=");
                             a = result;
                             break;
@@ -1222,9 +1322,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         else if(firstAndResult.getText().toString().length() == 0 && reserve.getText().toString().length() == 0){
                             b = 0;
                             a = 0;
-                            reserve.setText(Float.toString(a) + "X" +Float.toString(b));
+                            reserve.setText(Double.toString(a) + "✖" +Double.toString(b));
                             result = a*b;
-                            reserve.setText(Float.toString(result));
+                            reserve.setText(Double.toString(result));
                             operator.setText("=");
                             a = result;
                             break;
@@ -1234,19 +1334,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else if(operator.getText().toString() == "/"){
                         if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() > 0){
-                            if(Float.parseFloat(firstAndResult.getText().toString()) == 0){
+                            if(Double.parseDouble(firstAndResult.getText().toString()) == 0){
                                 Toast.makeText(this, "Cannot divide by zero (When you put nothing for division we count it as zero)",
                                         Toast.LENGTH_SHORT).show();
                                 break;
                             }
                             else{
-                                b = Float.parseFloat(firstAndResult.getText().toString());
+                                b = Double.parseDouble(firstAndResult.getText().toString());
 
                                 result = a/b;
 
                                 if(result > -Float.MAX_VALUE && result <Float.MAX_VALUE){
-                                    reserve.setText(Float.toString(a) + "/" +Float.toString(b));
-                                    firstAndResult.setText(Float.toString(result));
+                                    reserve.setText(Double.toString(a) + "/" +Double.toString(b));
+                                    firstAndResult.setText(Double.toString(result));
                                     operator.setText("=");
                                     a = result;
                                     break;
@@ -1269,13 +1369,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             break;
                         }
                         else if(firstAndResult.getText().toString().length() > 0 && reserve.getText().toString().length() == 0){
-                            if(Float.parseFloat(firstAndResult.getText().toString()) > 0)
+                            if(Double.parseDouble(firstAndResult.getText().toString()) > 0)
                             {
                                 a = 0;
-                                b = Float.parseFloat(firstAndResult.getText().toString());
-                                reserve.setText(Float.toString(a) + "/" + Float.toString(b));
+                                b = Double.parseDouble(firstAndResult.getText().toString());
+                                reserve.setText(Double.toString(a) + "/" + Double.toString(b));
                                 result = a/b;
-                                firstAndResult.setText(Float.toString(result));
+                                firstAndResult.setText(Double.toString(result));
                                 operator.setText("=");
                                 a = result;
                                 break;
@@ -1290,19 +1390,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
 
 
-                    else if((operator.getText().toString().length() == 0 || operator.getText().toString().length() > 0)
-                            && firstAndResult.getText().toString().length() > 0) {
-                        if(firstAndResult.getText().toString().length() > 1){
-                            operator.setText("=");
-                            reserve.setText(firstAndResult.getText().toString());
-                            break;
-                        }
-
-                        if(firstAndResult.getText().toString().length() == 1 &&
-                                firstAndResult.getText().toString().contains("-")){
-                            Toast.makeText(this, "Not valid", Toast.LENGTH_SHORT).show();
-                            break;
-                        }
+                    else if(operator.getText().toString().length() == 0){
+                        Toast.makeText(this, "Nothing to calculate", Toast.LENGTH_SHORT).show();
+                        break;
                     }
 
 
@@ -1313,6 +1403,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }catch (RuntimeException io){
                     io.printStackTrace();
                 }
+
+
 
 
 
